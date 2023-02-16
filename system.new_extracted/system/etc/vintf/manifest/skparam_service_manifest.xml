@@ -1,0 +1,20 @@
+<manifest version="1.0" type="framework">
+<hal format="hidl">
+        <name>vendor.skyworthdigital.hardware.tr069_service</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>Itr069_service</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+        <hal format="hidl">
+        <name>vendor.skyworthdigital.hardware.skparam_service</name>
+        <transport>hwbinder</transport>
+        <version>1.0</version>
+        <interface>
+            <name>Iskparam_service</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+</manifest>

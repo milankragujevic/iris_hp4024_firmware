@@ -1,0 +1,5 @@
+service tr069_hidl /system/bin/skyworth_tr069_hidl
+    class hal
+    user root
+    group root
+    

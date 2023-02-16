@@ -1,0 +1,7 @@
+service skmediaplayer /vendor/bin/hw/vendor.skyworthdigital.hardware.skmediaplayer@1.0-service 
+    class hal
+    user root
+    group root media system shell audio media_rw sdcard_rw
+    ioprio rt 4
+    writepid /dev/cpuset/foreground/tasks
+    

@@ -1,0 +1,43 @@
+
+on boot
+    # for key wirte / clear
+    chown system system /sys/class/unifykeys/name
+    chown system system /sys/class/unifykeys/read
+    chown system system /sys/class/unifykeys/write
+    chown system system /sys/class/unifykeys/list
+	
+	chmod 666 /sys/class/unifykeys/name
+    chmod 666 /sys/class/unifykeys/read
+    chmod 666 /sys/class/unifykeys/write
+    chmod 666 /sys/class/unifykeys/list
+	
+on early-fs
+    # skyinfo
+    mkdir /mnt/vendor/skyinfo 0755 root root
+
+on post-fs-data    
+    # skyinfo
+    chown root root /mnt/vendor/skyinfo
+    chmod 0777 /mnt/vendor/skyinfo
+    restorecon_recursive /mnt/vendor/skyinfo
+	chmod 0777 /sys/devices/platform/gpioleds/leds/net_red/brightness
+	chmod 0777 /sys/devices/platform/gpioleds/leds/net_green/brightness
+	chmod 0777 /sys/devices/platform/gpioleds/leds/sys_led/brightness
+service sqmpro /system/bin/sqmloader -c /tmp/sqm.ini -s /data/data/com.skyworth.iptv/ -f
+    oneshot
+    disabled
+       
+#start/stop sqm        
+service startsqm  /system/bin/sh -c /system/bin/startsqm
+    class core
+    user root
+    seclabel u:r:startsqm:s0
+    oneshot
+    disabled
+
+service stopsqm  /system/bin/sh -c /system/bin/stopsqm
+    class core
+    user root
+    seclabel u:r:stopsqm:s0
+    oneshot
+    disabled

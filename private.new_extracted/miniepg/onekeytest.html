@@ -1,0 +1,461 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1920*1080">
+    <title>MiniEPG</title>
+    <script type="text/javascript" src="lib/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="lib/underscore-min.js"></script>
+    <script type="text/javascript" src="lib/underscore.string.min.js"></script>
+    <script type="text/javascript" src="scripts/onkeytest.js"></script>
+
+    <style type="text/css">
+    #stbInfo {
+        position: absolute;
+        width: calc(1.5 * 240px);
+        height: calc(1.5 * 504px);
+        opacity: 0.95;
+        top: calc(1.5 * 57px);
+        background: url(img/bgLeft.png);
+    }
+    #stbMessage {
+        position: absolute;
+        top: calc(1.5 * 101px);
+        left: calc(1.5 * 43px);
+        font-size: calc(1.5 * 20px);
+    }
+    #stb_infoMessage {
+        position: absolute;
+        top: calc(1.5 * 166px);
+        left: calc(1.5 * 47px);
+        font-size: calc(1.5 * 20px);
+    }
+    #macAddress {
+        position: absolute;
+        left: calc(1.5 * 10px);
+        top: calc(1.5 * 60px);
+        color: rgb(194, 194, 194);
+    }
+    #tvAccount {
+        position: absolute;
+        top: calc(1.5 * 55px);
+        width: calc(1.5 * 228px);
+    }
+    #version {
+        position: absolute;
+        top: calc(1.5 * 113px);
+        width: calc(1.5 * 200px);
+    }
+    #accountMode {
+        position: absolute;
+        top: calc(1.5 * 153px);
+        width: calc(1.5 * 200px);
+    }
+    #ipAddress {
+        position: absolute;
+        top: calc(1.5 * 172px);
+        width: calc(1.5 * 200px);
+    }
+    #ipGateway {
+        position: absolute;
+        top: calc(1.5 * 253px);
+        width: calc(1.5 * 200px);
+    }
+    #currentTime {
+        position: absolute;
+        top: calc(1.5 * 300px);
+        width: calc(1.5 * 200px);
+    }
+    #one_tes_head {
+        position: absolute;
+        font-size: calc(1.5 * 20px);
+        width: calc(1.5 * 1280px);
+        height: calc(1.5 * 90px);
+        background: rgb(49, 48, 48);
+    }
+    #onekeyTest {
+        position: absolute;
+        width: calc(1.5 * 1040px);
+        height: calc(1.5 * 630px);
+        background-color: #000000;
+        top: calc(1.5 * 57px);
+        left: calc(1.5 * 240px);
+    }
+    #customer_head {
+        position: absolute;
+        top: calc(1.5 * 31px);
+        left: calc(1.5 * 70px);
+        background: url('img/pin_img30x43.png') no-repeat;
+        width: calc(1.5 * 50px);
+        height: calc(1.5 * 50px);
+    }
+    #customer_title {
+        position: absolute;
+        top: calc(1.5 * 20px);
+        left: calc(1.5 * 116px);
+        width: calc(1.5 * 50px);
+        height: calc(1.5 * 50px);
+        font-size: calc(1.5 * 41px);
+    }
+    #head_back_title {
+        position: absolute;
+        top: calc(1.5 * 35px);
+        left: calc(1.5 * 1110px);
+        height: calc(1.5 * 50px);
+        font-size: calc(1.5 * 18px);
+    }
+    #head_back_button {
+     position: absolute;
+    top: calc(1.5 * 37px);
+    height: calc(1.5 * 23px);
+    right: calc(1.5 * 180px);
+    text-align: center;
+    line-height: calc(1.5 * 20px);
+    font-size: calc(1.5 * 14px);
+    background-color: white;
+    color: #323135;
+    border-radius: calc(1.5 * 25px);
+    width: calc(1.5 * 40px);
+    float: right;
+    font-weight: bold;
+    }
+    #onekey_testing {
+        position: absolute;
+        top: calc(1.5 * 70px);
+        left: calc(1.5 * 24px);
+        width: calc(1.5 * 947px);
+        height: calc(1.5 * 390px);
+        background: url('img/bgRight.png');
+    }
+    #head_log {
+        position: absolute;
+        top: calc(1.5 * 26px);
+        left: calc(1.5 * 617px);
+        background: url('img/market_tvplus.png') no-repeat;
+        width: calc(1.5 * 60px);
+        height: calc(1.5 * 35px);
+    }
+    #onekeyTest_window {
+        position: absolute;
+        top: calc(1.5 * 33px);
+    }
+    #prompting_message {
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 846px);
+        margin-top: calc(1.5 * 13px);
+        margin-left: calc(1.5 * 24px);
+        line-height: calc(1.5 * 39px);
+        font-size: calc(1.5 * 26px);
+        color: rgb(218, 107, 21);
+    }
+    #testing_step {
+        background: url("img/bgListBar.png");
+        width: calc(1.5 * 911px);
+        height: calc(1.5 * 45px);
+        margin-top: calc(1.5 * 15px);
+        margin-left: calc(1.5 * 19px);
+        position: relative;
+        top: calc(1.5 * 7px);
+        font-size: calc(1.5 * 23px);
+        line-height: calc(1.5 * 45px);
+    }
+    #result_front_0 {
+        position: absolute;
+        top: calc(1.5 * 16px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_1 {
+        position: absolute;
+        top: calc(1.5 * 13px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_2 {
+        position: absolute;
+        top: calc(1.5 * 13px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_3 {
+        position: absolute;
+        top: calc(1.5 * 13px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_4 {
+        position: absolute;
+        top: calc(1.5 * 13px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_5 {
+        position: absolute;
+        top: calc(1.5 * 13px);
+        left: calc(1.5 * 13px);
+    }
+    #result_final_0 {
+        position: absolute;
+        top: calc(1.5 * -2px);
+        right: calc(1.5 * 38px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 130px);
+        font-size: calc(1.5 * 25px);
+        text-align: right;
+    }
+    #result_final_1 {
+        position: absolute;
+        top: calc(1.5 * -2px);
+        right: calc(1.5 * 38px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 130px);
+        font-size: calc(1.5 * 25px);
+        text-align: right;
+    }
+    #result_final_2 {
+        position: absolute;
+        top: calc(1.5 * -2px);
+        right: calc(1.5 * 38px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 130px);
+        font-size: calc(1.5 * 25px);
+        text-align: right;
+    }
+    #result_final_3 {
+        position: absolute;
+        top: calc(1.5 * -2px);
+        right: calc(1.5 * 38px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 130px);
+        font-size: calc(1.5 * 25px);
+        text-align: right;
+    }
+    #result_final_4 {
+        position: absolute;
+        top: calc(1.5 * -2px);
+        right: calc(1.5 * 38px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 130px);
+        font-size: calc(1.5 * 25px);
+        text-align: right;
+    }
+    #result_final_5 {
+        position: absolute;
+        top: calc(1.5 * -2px);
+        right: calc(1.5 * 38px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 130px);
+        font-size: calc(1.5 * 25px);
+        text-align: right;
+    }
+    #result_going_0 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top: calc(1.5 * -1px);
+        font-size: calc(1.5 * 29px);
+    }
+    #result_going_1 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top: calc(1.5 * -1px);
+        font-size: calc(1.5 * 29px);
+    }
+    #result_going_2 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 785px);
+        top: calc(1.5 * -1px);
+        font-size: calc(1.5 * 29px);
+    }
+    #result_going_3 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top: calc(1.5 * -1px);
+        font-size: calc(1.5 * 29px);
+    }
+    #result_going_4 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top: calc(1.5 * -1px);
+        font-size: calc(1.5 * 29px);
+    }
+    #result_going_5 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top: calc(1.5 * -1px);
+        font-size: calc(1.5 * 29px);
+    }
+    .step_number {
+        margin-left: calc(1.5 * 51px);
+    }
+    #test_statue {
+        display: none;
+        position: absolute;
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 864px);
+        top: calc(1.5 * 402px);
+        text-align: center;
+        background: url('img/record_ic_choose_1.png');
+    }
+    #test_statue1 {
+        display: none;
+        position: absolute;
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 864px);
+        top: calc(1.5 * 402px);
+        text-align: center;
+        background: url('img/fail.png');
+    }
+    #test_statue2 {
+        display: none;
+        position: absolute;
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 864px);
+        top: calc(1.5 * 402px);
+        text-align: center;
+        background: url('img/setting_ic_testing.png');
+    }
+    #testing_button {
+        position: absolute;
+        left: calc(1.5 * 24px);
+        width: calc(1.5 * 949px);
+        height: calc(1.5 * 58px);
+        top: calc(1.5 * 481px);
+        line-height: calc(1.5 * 53px);
+        text-align: center;
+        font-size: calc(1.5 * 29px);
+        background: -webkit-gradient(linear, left top, left bottom, from(rgba(53, 54, 54, 0.43)), color-stop(0.5, rgba(133, 132, 132, 0.4)), to(rgba(206, 204, 204, 0.41)));
+        box-shadow: 0 0 0 calc(1.5 * 2px) rgba(225, 225, 226, 1), 0 0 calc(1.5 * 30px) calc(1.5 * 1px) rgba(247, 249, 250, 0.7);
+        border-radius: calc(1.5 * 3px);
+    }
+    </style>
+
+    <script>
+    function openStbSetPage() {
+
+        var setPageUrl = Utility.getValueByName("stbLocalSetPageURL");
+        console.log("openStbSetPage:========" + setPageUrl);
+        $("#templateIframe").css("display", "none");
+        $("#settingIframe").attr("src", setPageUrl).css("display", "block");
+    };
+
+    function stbLocalPageBackToEPG() {
+        console.log("stbLocalPageBackToEPG:======");
+        $("#settingIframe").css("display", "none").attr("src", "");
+        $("#templateIframe").css("display", "block");
+        templateIframe.window.setAutoFocus();
+    };
+    </script>
+</head>
+
+<body style="margin: calc(1.5 * 0px); overflow: hidden; color: #FFFFFF;width:calc(1.5 * 1280px);height:calc(1.5 * 720px);background:url('img/back.jpg') no-repeat;font-family: 'DINNextLTPro-Regular', 'calibri';">
+
+    <div id="one_tes_head">
+        <div id="customer_head"></div>
+        <div id="customer_title">
+        </div>
+        <div id="head_log"></div>
+        <div id="head_back_title">
+        </div>
+        <div id="head_back_button">
+        </div>
+        <div id="setDiv" style="position: absolute; font-size: calc(1.5 * 20px); color: green; right: calc(1.5 * 50px); top: calc(1.5 * 50px);">
+        </div>
+    </div>
+    <div id="onekeyTest_window">
+        <div id="stbInfo">
+            <div id="stbMessage"></div>
+            <div id="stb_infoMessage">
+                <div id="macAdderss"></div>
+                <div id="macAdderss_msg" style="position: absolute;width: calc(1.5 * 237px); height: calc(1.5 * 31px);margin-left: calc(1.5 * -1px);">
+
+                </div>
+                <div id="tvAccount"></div>
+                <div id="tvAccount_msg" style="position: absolute; width: calc(1.5 * 237px); height: calc(1.5 * 31px); top:calc(1.5 * 84px);margin-left: calc(1.5 * -1px);">
+
+                </div>
+                <div id="version"></div>
+                <div id="version_msg" style="position: absolute; width: calc(1.5 * 237px); height: calc(1.5 * 31px); top: calc(1.5 * 140px);margin-left: calc(1.5 * -1px);">
+
+                </div>
+                <!-- <div id="accountMode"></div>
+                <div id="accountMode_msg" style="position: absolute; width: calc(1.5 * 237px); height: calc(1.5 * 31px); top: calc(1.5 * 172px);margin-left: calc(1.5 * -1px);">
+
+                </div> -->
+                <div id="ipAddress"></div>
+                <div id="ipAddress_msg" style="position: absolute; width: calc(1.5 * 237px); height: calc(1.5 * 31px); top: calc(1.5 * 196px);margin-left: calc(1.5 * -1px);">
+
+                </div>
+                <!-- <div id="ipGateway"></div>
+                <div id="ipGateway_msg" style="position: absolute; width: calc(1.5 * 237px); height: calc(1.5 * 31px); top: calc(1.5 * 274px);margin-left: calc(1.5 * -1px);">
+
+                </div>
+                <div id="currentTime"></div>
+                <div id="currentTime_msg" style="position: absolute; width: calc(1.5 * 237px); height: calc(1.5 * 31px); top: calc(1.5 * 322px);margin-left: calc(1.5 * -1px);"></div> -->
+            </div>
+        </div>
+        <div id="onekeyTest">
+            <div id="prompting_message"></div>
+            <div id="onekey_testing">
+                <div id="testing_step">
+                    <img id="result_front_0"></img>
+                    <div id="step_0" class="step_number"></div>
+                    <div id="result_final_0"></div>
+                    <div id="result_going_0"></div>
+                </div>
+                <div id="testing_step">
+                    <img id="result_front_1"></img>
+                    <div id="step_1" class="step_number"></div>
+                    <div id="result_final_1"></div>
+                    <div id="result_going_1"></div>
+                </div>
+                <div id="testing_step">
+                    <img id="result_front_2"></img>
+                    <div id="step_2" class="step_number"></div>
+                    <div id="result_final_2"></div>
+                    <div id="result_going_2"></div>
+                </div>
+                <div id="testing_step">
+                    <img id="result_front_3"></img>
+                    <div id="step_3" class="step_number"></div>
+                    <div id="result_final_3"></div>
+                    <div id="result_going_3"></div>
+                </div>
+                <div id="testing_step">
+                    <img id="result_front_4"></img>
+                    <div id="step_4" class="step_number"></div>
+                    <div id="result_final_4"></div>
+                    <div id="result_going_4"></div>
+                </div>
+               <!--  <div id="testing_step">
+                    <img id="result_front_5"></img>
+                    <div id="step_5" class="step_number"></div>
+                    <div id="result_final_5"></div>
+                    <div id="result_going_5"></div>
+                </div> -->
+            </div>
+            <div id="test_statue"></div>
+            <div id="test_statue1"></div>
+            <div id="test_statue2"></div>
+            <div id="testing_button">
+                <div id="start_button"></div>
+            </div>
+        </div>
+    </div>
+    <div id="error_page" style="position: absolute; background: url(img/com_bg_pop.png) left top no-repeat; width: calc(1.5 * 692px); height: calc(1.5 * 398px); left: calc(1.5 * 300px); top: calc(1.5 * 200px); font-size: calc(1.5 * 24px); visibility: hidden;">
+        <div id="ctitle" style="position: relative; margin-left: calc(1.5 * 70px); padding-top: calc(1.5 * 110px); width: calc(1.5 * 570px); line-height: calc(1.5 * 30px); text-align: left; overflow: hidden;"></div>
+        <div id="content" style="width: calc(1.5 * 570px); height: calc(1.5 * 200px); line-height: calc(1.5 * 50px); text-align: left; overflow: hidden; margin-left: calc(1.5 * 70px); margin-top: calc(1.5 * 10px); word-wrap: break-word;"></div>
+        <div id="alert_logo" style="position: absolute; width: calc(1.5 * 44px); height: calc(1.5 * 30px); left: calc(1.5 * 15px); top: calc(1.5 * 20px); background-image: url('img/com_pop_logo.png');"></div>
+        <div id="tip" style="position: absolute; width: 100%; height: calc(1.5 * 30px); top: calc(1.5 * 20px); font-size: calc(1.5 * 30px); text-align: center;">Note</div>
+        <div id="ok" style="position: absolute; width: calc(1.5 * 682px); height: calc(1.5 * 62px); line-height: calc(1.5 * 62px); bottom: calc(1.5 * 6px); left: calc(1.5 * 4px); text-align: center; background: url(img/com_bt_pop01_select.png) left top no-repeat; font-size: calc(1.5 * 24px)">OK</div>
+    </div>
+</body>
+
+</html>

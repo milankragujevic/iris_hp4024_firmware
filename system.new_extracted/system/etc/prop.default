@@ -1,0 +1,38 @@
+#
+# ADDITIONAL_DEFAULT_PROPERTIES
+#
+ro.actionable_compatible_property.enabled=true
+ro.secure=1
+security.perf_harden=1
+ro.adb.secure=1
+ro.allow.mock.location=0
+ro.debuggable=0
+dalvik.vm.image-dex2oat-Xms=64m
+dalvik.vm.image-dex2oat-Xmx=64m
+dalvik.vm.dex2oat-Xms=64m
+dalvik.vm.dex2oat-Xmx=512m
+dalvik.vm.usejit=true
+dalvik.vm.usejitprofiles=true
+dalvik.vm.dexopt.secondary=true
+dalvik.vm.appimageformat=lz4
+pm.dexopt.first-boot=quicken
+pm.dexopt.boot=verify
+pm.dexopt.install=speed-profile
+pm.dexopt.bg-dexopt=speed-profile
+pm.dexopt.ab-ota=speed-profile
+pm.dexopt.inactive=verify
+pm.dexopt.shared=speed
+dalvik.vm.dex2oat-minidebuginfo=true
+debug.atrace.tags.enableflags=0
+persist.bluetooth.btsnoopenable=false
+persist.bluetooth.btsnooppath=/data/misc/bluedroid/btsnoop_hci.cfa
+persist.bluetooth.btsnoopsize=0xffff
+persist.bluetooth.showdeviceswithoutnames=false
+vendor.bluetooth.enable_timeout_ms=11000
+#
+# BOOTIMAGE_BUILD_PROPERTIES
+#
+ro.bootimage.build.date=Fri Dec 9 19:48:44 CST 2022
+ro.bootimage.build.date.utc=1670586524
+ro.bootimage.build.fingerprint=Telekom_Serbija/HP4024/HP40A:9/PPR1.180610.011/P4.0.0_20221209:user/release-keys
+persist.sys.usb.config=none

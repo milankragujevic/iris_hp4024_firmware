@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="page-view-size" content="1920*1080" />
+    <title>MiniEPG</title>
+    <script type="text/javascript" src="lib/jquery-1.10.2.min.js"></script>
+    <script type="text/javascript" src="lib/underscore-min.js"></script>
+    <script type="text/javascript" src="lib/underscore.string.min.js"></script>
+    <script type="text/javascript" src="scripts/main.js"></script>
+    <style type="text/css">
+    #templateIframe {
+        margin: 0px;
+        border: 0px;
+    }
+    #settingIframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: calc(1.5 * 1280px);
+        height: calc(1.5 * 720px);
+        overflow: hidden;
+        margin: 0px;
+        border: 0px;
+        display: none;
+    }
+    #stbInfo {
+        position: absolute;
+        width: calc(1.5 * 240px);
+        height: calc(1.5 * 504px);
+        background-color: #000000;
+        opacity: 0.95;
+        top: calc(1.5 * 58px);
+        left: calc(1.5 * 60px);
+    }
+    #stbMessage {
+        position: absolute;
+        top: calc(1.5 * 20px);
+        left: calc(1.5 * 10px);
+    }
+    #stb_infoMessage {
+        position: absolute;
+        top: calc(1.5 * 50px);
+        left: calc(1.5 * 10px);
+    }
+    #macAddress {
+        position: absolute;
+        left: calc(1.5 * 10px);
+        top: calc(1.5 * 60px);
+        color: rgb(194, 194, 194);
+    }
+    #tvAccount {
+        position: absolute;
+        top: calc(1.5 * 65px);
+        width: calc(1.5 * 228px);
+    }
+    #version {
+        position: absolute;
+        top: calc(1.5 * 132px);
+    }
+    #accountMode {
+        position: absolute;
+        top: calc(1.5 * 197px);
+    }
+    #ipAddress {
+        position: absolute;
+        top: calc(1.5 * 260px);
+    }
+    #ipGateway {
+        position: absolute;
+        top: calc(1.5 * 322px);
+    }
+    #currentTime {
+        position: absolute;
+        top: calc(1.5 * 386px);
+    }
+    #onekeyTest {
+        position: absolute;
+        width: calc(1.5 * 865px);
+        height: calc(1.5 * 504px);
+        background-color: #000000;
+        opacity: 0.7;
+        top: calc(1.5 * 57px);
+        left: calc(1.5 * 320px);
+    }
+    #onekey_testing {
+        position: absolute;
+        top: calc(1.5 * 52px);
+        left: calc(1.5 * 19px);
+    }
+    #prompting_message {
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 846px);
+        margin-top: calc(1.5 * 11px);
+        margin-left: calc(1.5 * 19px);
+        line-height: calc(1.5 * 39px);
+    }
+    #testing_step {
+        background: url("./img/guide_bg_bar.png");
+        left: calc(1.5 * 41px);
+        width: calc(1.5 * 828px);
+        height: calc(1.5 * 40px);
+        margin-top: calc(1.5 * 5px);
+        line-height: calc(1.5 * 39px);
+    }
+    #result_front_0 {
+        position: absolute;
+        top: calc(1.5 * 16px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_1 {
+        position: absolute;
+        top: calc(1.5 * 62px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_2 {
+        position: absolute;
+        top: calc(1.5 * 107px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_3 {
+        position: absolute;
+        top: calc(1.5 * 152px);
+        left: calc(1.5 * 13px);
+    }
+    #result_front_4 {
+        position: absolute;
+        top: calc(1.5 * 196px);
+        left: calc(1.5 * 13px);
+    }
+    #result_final_0 {
+        position: absolute;
+        top: calc(1.5 * 5px);
+        left: calc(1.5 * 720px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 80px);
+    }
+    #result_final_1 {
+        position: absolute;
+        top: calc(1.5 * 50px);
+        left: calc(1.5 * 720px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 80px);
+    }
+    #result_final_2 {
+        position: absolute;
+        top: calc(1.5 * 95px);
+        left: calc(1.5 * 720px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 80px);
+    }
+    #result_final_3 {
+        position: absolute;
+        top: calc(1.5 * 140px);
+        left: calc(1.5 * 720px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 80px);
+    }
+    #result_final_4 {
+        position: absolute;
+        top: calc(1.5 * 185px);
+        left: calc(1.5 * 720px);
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 80px);
+    }
+    #result_going_0 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top: calc(1.5 * 20px);
+    }
+    #result_going_1 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top:calc(1.5 * 65px);
+    }
+    #result_going_2 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top:calc(1.5 * 110px);
+    }
+    #result_going_3 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top:calc(1.5 * 155px);
+    }
+    #result_going_4 {
+        position: absolute;
+        width: calc(1.5 * 21px);
+        height: calc(1.5 * 10px);
+        left: calc(1.5 * 805px);
+        top:calc(1.5 * 200px);
+    }
+    .step_number {
+        margin-left: calc(1.5 * 50px);
+    }
+    #test_statue {
+        position: absolute;
+        height: calc(1.5 * 40px);
+        width: calc(1.5 * 864px);
+        top: calc(1.5 * 402px);
+        text-align: center;
+    }
+    #testing_button {
+        position: absolute;
+        left: calc(1.5 * 19px);
+        width: calc(1.5 * 828px);
+        height: calc(1.5 * 40px);
+        top: calc(1.5 * 452px);
+        line-height: calc(1.5 * 39px);
+        text-align: center;
+        background-color: blue;
+    }
+    </style>
+    <script>
+    window.onkeydown = function() {
+        return false;
+    };
+
+
+    function openStbSetPage() {
+
+        var setPageUrl = Utility.getValueByName("stbLocalSetPageURL");
+        console.log("openStbSetPage:========" + setPageUrl);
+        $("#templateIframe").css("display", "none");
+        $("#settingIframe").attr("src", setPageUrl).css("display", "block");
+    };
+
+
+    function stbLocalPageBackToEPG() {
+        console.log("stbLocalPageBackToEPG:======");
+        $("#settingIframe").css("display", "none").attr("src", "");
+        $("#templateIframe").css("display", "block");
+        templateIframe.window.setAutoFocus();
+    };
+    </script>
+</head>
+
+<body style="margin: 0px; overflow: hidden; color: #FFFFFF;">
+    <iframe id="templateIframe" name="templateIframe" scrolling=no border="0" style="overflow: hidden;"></iframe>
+    <iframe id="settingIframe" scrolling=no border="0">
+    </iframe>
+    <div style="width: 0px; height: 0px; overflow: hidden;">
+        <button autofocus="autofocus">
+    </div>
+    <div id="setDiv" style="position: absolute; font-size: calc(1.5 * 20px); color: green; right: calc(1.5 * 50px); top: calc(1.5 * 50px);">
+    </div>
+    <div id="error_page" style="position: absolute; background: url(img/com_bg_pop.png) left top no-repeat; width: calc(1.5 * 692px); height: calc(1.5 * 398px); left: calc(1.5 * 300px); top: calc(1.5 * 200px); font-size: calc(1.5 * 24px); visibility: hidden;">
+        <div id="ctitle" style="position: relative; margin-left: calc(1.5 * 70px); padding-top: calc(1.5 * 110px); width: calc(1.5 * 570px); line-height: calc(1.5 * 30px); text-align: left; overflow: hidden;"></div>
+        <div id="content" style="width: calc(1.5 * 570px); height: calc(1.5 * 200px); line-height: calc(1.5 * 50px); text-align: left; overflow: hidden; margin-left: calc(1.5 * 70px); margin-top: calc(1.5 * 10px); word-wrap: break-word;"></div>
+        <div id="alert_logo" style="position: absolute; width: calc(1.5 * 44px); height: calc(1.5 * 30px); left: calc(1.5 * 15px); top: calc(1.5 * 20px); background-image: url('img/com_pop_logo.png');"></div>
+        <div id="tip" style="position: absolute; width: 100%; height: calc(1.5 * 30px); top: calc(1.5 * 20px); font-size: calc(1.5 * 30px); text-align: center;">Note</div>
+        <div id="ok" style="position: absolute; width: calc(1.5 * 682px); height: calc(1.5 * 62px); line-height: calc(1.5 * 62px); bottom: calc(1.5 * 6px); left: calc(1.5 * 4px); text-align: center; background: url(img/com_bt_pop01_select.png) left top no-repeat; font-size: calc(1.5 * 24px)">OK</div>
+    </div>
+    <div id="error_icon" style="position: absolute; top: calc(1.5 * 500px); left: calc(1.5 * 1100px); width: calc(1.5 * 80px); height: calc(1.5 * 80px);"></div>
+
+    <div id="new_version_page" style="position: absolute; background: url(img/com_bg_pop_01.png) left top no-repeat; width: calc(1.5 * 692px); height: calc(1.5 * 334px); left: calc(1.5 * 300px); top: calc(1.5 * 197px); visibility: hidden;">
+        <div id="top" class="top" style="position: absolute; width: calc(1.5 * 692px); height: calc(1.5 * 65px);">
+            <div id="logo" style="position: absolute;width: calc(1.5 * 44px);height: calc(1.5 * 30px);left: calc(1.5 * 15px);top: calc(1.5 * 20px); background: url('img/com_pop_logo.png'); "></div>
+            <div id="update_title" style="position: absolute;width: calc(1.5 * 200px);height: calc(1.5 * 50px);left: calc(1.5 * 246px);top: calc(1.5 * 21px);text-align: center;font-size: calc(1.5 * 28px);"></div>
+        </div>
+        <div id="middle" class="middle">
+            <div id="button_0" style="position: absolute;width: calc(1.5 * 342px);height: calc(1.5 * 62px);top: calc(1.5 * 264px);left: calc(1.5 * 3px);line-height: calc(1.5 * 58px);font-size: calc(1.5 * 24px);color: #FFF;text-align: center;background:url(img/com_bt_popleft_select.png) no-repeat;" }></div>
+            <div id="button_1" style="position: absolute;width: calc(1.5 * 342px);height: calc(1.5 * 62px);top: calc(1.5 * 264px);left: calc(1.5 * 345px);line-height: calc(1.5 * 58px);font-size: calc(1.5 * 24px);color: #666;text-align: center;background:url(img/com_bt_popright_normal.png) no-repeat;"></div>
+        </div>
+        <div id="exit_title" style="position: absolute;top: calc(1.5 * 120px);width: calc(1.5 * 500px);height: calc(1.5 * 56px);line-height: calc(1.5 * 90px);font-size: calc(1.5 * 22px);left: calc(1.5 * 60px);" }></div>
+    </div>
+</body>
+
+</html>

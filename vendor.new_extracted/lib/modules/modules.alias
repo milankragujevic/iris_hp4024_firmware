@@ -1,0 +1,20 @@
+# Aliases extracted from modules themselves.
+alias usb:v1B0Dp2F04d*dc*dsc*dp*ic*isc*ip*in* cimax_usb
+alias usb:v1B0Dp2F03d*dc*dsc*dp*ic*isc*ip*in* cimax_usb
+alias usb:v1B0Dp2F02d*dc*dsc*dp*ic*isc*ip*in* cimax_usb
+alias usb:v1B0Dp2F01d*dc*dsc*dp*ic*isc*ip*in* cimax_usb
+alias usb:v1B0Dp2F00d*dc*dsc*dp*ic*isc*ip*in* cimax_usb
+alias of:N*T*Carm,mali-midgardC* mali
+alias of:N*T*Carm,mali-midgard mali
+alias of:N*T*Carm,malit6xxC* mali
+alias of:N*T*Carm,malit6xx mali
+alias sdio:c*v037Ad7603* wlan_mt7663_sdio
+alias sdio:c*v037Ad7666* btmtksdio
+alias sdio:c*v037Ad7663* btmtksdio
+alias sdio:c*v037Ad7668* btmtksdio
+alias sdio:c*v037Ad6632* btmtksdio
+alias sdio:c*v037Ad6630* btmtksdio
+alias sdio:c07v024CdD821* 8822cs
+alias sdio:c07v024CdC822* 8822cs
+alias of:N*T*Csprd,unisoc-wifiC* sprdwl_ng
+alias of:N*T*Csprd,unisoc-wifi sprdwl_ng

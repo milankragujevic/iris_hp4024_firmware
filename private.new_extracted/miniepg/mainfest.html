@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="page-view-size" content="1920*1080" />
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <script type="text/javascript" src='lib/jquery-1.10.2.min.js'></script>
+    <script type="text/javascript" src='lib/underscore-min.js'></script>
+    <script type="text/javascript" src='scripts/stbservice.js'></script>
+
+    <script type="text/javascript">
+    function openStbSetPage() {
+
+        var setPageUrl = Utility.getValueByName("stbLocalSetPageURL");
+        console.log("openStbSetPage:========" + setPageUrl);
+        $("#templateIframe").css("display", "none");
+        $("#settingIframe").attr("src", setPageUrl).css("display", "block");
+    };
+
+
+    function stbLocalPageBackToEPG() {
+        console.log("stbLocalPageBackToEPG:======");
+        $("#settingIframe").css("display", "none").attr("src", "");
+        $("#templateIframe").css("display", "block");
+        templateIframe.window.setAutoFocus();
+    };
+
+    $(function() {
+
+        var lang = Utils.getValueByName('lang');
+
+        i18n.culture('lang_' + lang);
+
+        var manifest = null;
+
+        var start = function() {
+            var view = new View();
+            view.retry = function() {
+                start();
+            };
+
+            STBService.dispatchEPGServer(function(epg_url) {
+                manifest_url = epg_url + '/cache.html?target=applicationCache';
+                template_url = epg_url + '/index.html';
+                console.log('dispatch epg succuss, url:' + epg_url);
+                console.log('manifest_url:' + manifest_url);
+                console.log('template_url:' + template_url);
+
+                manifest = new Manifest(view, template_url);
+                manifest.load(manifest_url);
+            }, _.bind(view.fail, view));
+        };
+
+
+        window.onmessage = function() {
+            console.log('index.html onmessage.');
+            manifest.onMessage.apply(manifest, arguments);
+        };
+
+        start();
+    });
+    </script>
+</head>
+
+<body>
+    <iframe id="templateIframe" name="templateIframe" scrolling=no border="0" style="overflow: hidden;"></iframe>
+    <iframe id="settingIframe" scrolling=no border="0">
+    </iframe>
+    <div style="width: 0px; height: 0px; overflow: hidden;">
+        <button autofocus="autofocus">
+    </div>
+    <div id="commonbg">
+        <div id="logo"></div>
+        <div id="loading">
+            <div id="title"></div>
+            <div id="progress_bg">
+                <div id="progress"></div>
+            </div>
+        </div>
+        <div id="action_alert_page">
+            <div id="middle_area">
+                <div id="note_title"></div>
+                <div id="operate_title" class="introInfo"></div>
+                <div id="info_title" class="introInfo"></div>
+                <div id="confirm_title" class="introInfo"></div>
+                <div id="button_list">
+                    <div class='focus-item focus' id='retry'></div>
+                    <div class='focus-item' id='quit'></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="error_page" style="position: absolute; background: url(img/com_bg_pop.png) left top no-repeat; width: calc(1.5 * 692px); height: calc(1.5 * 398px); left: calc(1.5 * 300px); top: calc(1.5 * 200px); font-size: calc(1.5 * 24px); visibility: hidden;">
+        <div id="ctitle" style="position: relative; margin-left: calc(1.5 * 70px); padding-top: calc(1.5 * 110px); width: calc(1.5 * 570px); line-height: calc(1.5 * 30px); text-align: left; overflow: hidden;"></div>
+        <div id="content" style="width: calc(1.5 * 570px); height: calc(1.5 * 200px); line-height: calc(1.5 * 50px); text-align: left; overflow: hidden; margin-left: calc(1.5 * 70px); margin-top: calc(1.5 * 10px); word-wrap: break-word;"></div>
+        <div id="alert_logo" style="position: absolute; width: calc(1.5 * 44px); height: calc(1.5 * 30px); left: calc(1.5 * 15px); top: calc(1.5 * 20px); background-image: url('img/com_pop_logo.png');"></div>
+        <div id="tip" style="position: absolute; width: 100%; height: calc(1.5 * 30px); top: calc(1.5 * 20px); font-size: calc(1.5 * 30px); text-align: center;">Note</div>
+        <div id="ok" style="position: absolute; width: calc(1.5 * 682px); height: calc(1.5 * 62px); line-height: calc(1.5 * 62px); bottom: calc(1.5 * 6px); left: calc(1.5 * 4px); text-align: center; background: url(img/com_bt_pop01_select.png) left top no-repeat; font-size: calc(1.5 * 24px)">OK</div>
+    </div>
+</body>
+
+</html>

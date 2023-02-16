@@ -1,0 +1,816 @@
+<?xml version="1.0"?>
+<model>
+	<schema name="Device" type="object">
+	 <schema name="DeviceSummary" type="string" constraint="1024"  default="Skyworth Digital Tech. Co., Ltd."/>
+  	<extension name="Event" type="multipleObject">
+      <extension name="EventCode" type="string"/>
+      <extension name="CommandKey" type="string"/>
+    </extension>
+    <schema name="DeviceInfo" type="object">
+      <schema name="Manufacturer" type="string" constraint="64"  default="SKYWORTH"/>
+      <schema name="ManufacturerOUI" type="string" inform="true" constraint="6"  default="990104"/>
+      <schema name="ModelName" type="string" inform="true" constraint="64" getter="sk_tr069_get_product_type"/>
+      <schema name="ModelID" type="string" inform="true" constraint="64" getter="sk_tr069_get_product_type"/>
+      <schema name="Description" type="string" inform="true" constraint="256" default="SKYWORTH IPTV"/>
+	  <schema name="AlarmCode" inform="true"  type="string" default="300103"/>
+      <schema name="ProductClass" type="string" constraint="64" getter="sk_tr069_get_product_type"/>
+      <schema name="SerialNumber" type="string" constraint="64" getter="sk_tr069_get_stbid"  />
+      
+      <schema name="HardwareVersion" type="string" inform="true" constraint="64" getter="sk_tr069_get_hd_version"  />
+      <schema name="SoftwareVersion" type="string"  inform="true" constraint="64" notification="active" getter="sk_tr069_get_sw_version"/>
+      
+      <schema name="SafeVersion" type="string" constraint="64" default="v0"/>
+      <schema name="ConfigFileVersion" type="string" constraint="64" default="v1.0"/>
+      <schema name="LogoVersion" type="string" constraint="64" default="V301"/>
+      
+	    <schema name="EnabledOptions" type="string" constraint="1024" default="0" />
+      <schema name="AdditionalHardwareVersion" type="string" inform="true" constraint="64" default="LOADER_V:2000008,BOOT_V:8192057"/>
+      <schema name="AdditionalSoftwareVersion" type="string" inform="true" constraint="64" default="EN8-MTK8637"/>
+      <schema name="ProvisioningCode" type="string" constraint="64" notification="active" default="990104"/>
+			
+	    <schema name="DeviceStatus" type="string" constraint="64" default="Up"/>
+      <schema name="UpTime" type="unsignedInt"  getter="sk_tr069_get_up_time"/>
+      <schema name="FirstUseDate" type="dateTime" getter="sk_tr069_get_first_use_date"/>
+      <schema name="DeviceLog" type="string" constraint="32768" default="this is run log!"/>
+    </schema>
+	<schema name="X_00E0FC" type="object">
+	<schema name="DebugInfo" type="object">
+      <schema name="Action" type="int" write="W" setter="sk_tr069_set_upload_action"/>
+      <schema name="UploadURL" type="string" constraint="255" write="W" setter="sk_tr069_set_upload_url"/>
+      <schema name="CapCommand" type="string" constraint="255" write="W" setter="sk_tr069_set_upload_cap_cmd"/>    
+      <schema name="Username" type="string"  constraint="64" write="W" setter="sk_tr069_set_upload_username"/>     
+      <schema name="Password" type="string" constraint="64" write="W" setter="sk_tr069_set_upload_password"/>
+    </schema>	
+	<schema name="Domain" type="string" inform="true" getter="sk_tr069_get_domain" setter="sk_tr069_set_domain"/>
+	<schema name="AlarmSwitch" type="boolean" write="W" setter="sk_tr069_set_alarmswitch" getter="sk_tr069_get_alarmswitch"/>
+	<schema name="AlarmReportLevel" type="int" setter="sk_tr069_set_alarmlevel" getter="sk_tr069_get_alarmlevel"/>
+	<schema name="CPUAlarmValue" type="string" constraint="16" setter="sk_tr069_set_cpu_alarm" getter="sk_tr069_get_cpu_alarm"/>
+	<schema name="MemoryAlarmValue" type="string" constraint="16" setter="sk_tr069_set_memory_alarm" getter="sk_tr069_get_memory_alarm"/>
+	<schema name="DiskAlarmValue" type="int" setter="sk_tr069_set_disk_alarm" getter="sk_tr069_get_disk_alarm"/>
+	<schema name="BandwidthAlarmValue" type="string" constraint="16" setter="sk_tr069_set_bandwidth_alarm" getter="sk_tr069_get_bandwidth_alarm"/>
+	<schema name="PacketsLostAlarmValue" type="string" constraint="16" setter="sk_tr069_set_packet_lost_alarm" getter="sk_tr069_get_packet_lost_alarm"/>
+	<schema name="Alarm" type="object">
+		<schema name="1" type="object">
+      		<schema name="AlarmSN"  inform="true" type="unsignedInt" default="1"/>  
+      		<schema name="AlarmObjectInstance" inform="true"  type="string" getter="sk_tr069_get_stbid"/>  
+      		<schema name="AlarmLocation" inform="true"  type="string" default="unkown"/>  
+      		<schema name="AlarmCode" inform="true"  type="string" getter="sk_tr069_get_alarmcode"/>  
+      		<schema name="AlarmRaisedTime" inform="true"  type="string" getter="sk_tr069_get_alarm_starttime"/> 
+      		<schema name="AlarmClearedTime" inform="true"  type="string" getter="sk_tr069_get_alarm_endtime"/> 
+      		<schema name="PerceivedSeverity" inform="true"  type="int" default="1"/>
+      		<schema name="AdditionalInformation" inform="true"  type="string" default="skyworth_alarm_AdditionalInformation"/>
+      	</schema>
+	</schema>
+	<schema name="LogParaConfiguration" type="object">
+		 <schema name="LogType"  type="int"  write="W" getter="sk_tr069_get_syslog_logtype" setter="sk_tr069_set_syslog_logtype" />
+		 <schema name="LogLevel"  type="int"  write="W" getter="sk_tr069_get_syslog_loglevel" setter="sk_tr069_set_syslog_loglevel" />
+		 <schema name="LogOutPutType"  type="int"  write="W" getter="sk_tr069_get_syslog_puttype" setter="sk_tr069_set_syslog_puttype" />
+		 <schema name="SyslogServer"  type="string"  constraint="256" write="W" getter="sk_tr069_get_syslog_server" setter="sk_tr069_set_syslog_server" />
+		 <schema name="SyslogStartTime"  type="dateTime"  write="W"  getter="sk_tr069_get_syslog_starttime" setter="sk_tr069_set_syslog_starttime"/>
+		 <schema name="SyslogContinueTime"  type="unsignedInt"  write="W" getter="sk_tr069_get_syslog_continue_time" setter="sk_tr069_set_syslog_continue_time" />
+	</schema>
+	<schema name="PacketCapture" type="object">
+			<schema name="Username" type="string" constraint="256"  write="W" setter="sk_tr069_set_PacketCapture_Username"/>
+			<schema name="Port" type="int"   getter="sk_tr069_get_PacketCapture_Port"  setter="sk_tr069_set_PacketCapture_Port" /> 
+			<schema name="IP" type="string"   write="W" setter="sk_tr069_set_PacketCapture_IP" getter="sk_tr069_get_PacketCapture_IP"/> 
+			<schema name="Duration" type="int"  getter="sk_tr069_get_PacketCapture_Duration"  setter="sk_tr069_set_PacketCapture_Duration"/>
+			<schema name="State" type="int"   getter="sk_tr069_get_PacketCapture_state"  setter="sk_tr069_set_PacketCapture_state"/> 
+			<schema name="UploadURL" type="string" constraint="256"  write="W" setter="sk_tr069_set_PacketCapture_UploadURL"/> 
+			<schema name="Password" type="string" constraint="256"  write="W" setter="sk_tr069_set_PacketCapture_Password"/> 
+	</schema>
+	<schema name="PlayDiagnostics" type="object">
+			<schema name="PlayState" type="int"  getter="sk_tr069_get_PlayState"/>
+			<schema name="DiagnosticsState" type="string"  write="W" getter="sk_tr069_get_play_state"/>
+			<schema name="PlayURL" type="string" write="W" setter="sk_tr069_set_PlayURL" getter="sk_tr069_get_PlayURL"/>
+	</schema>
+	<schema name="ServiceStatistics" type="object">  
+     		<schema name="Startpoint" type="string"  getter="sk_tr069_get_startpoint"/> 	
+     		<schema name="Endpoint" type="string" getter="sk_tr069_get_endpoint"/> 	
+     		<schema name="AuthNumbers" type="unsignedInt" getter="sk_tr069_get_authnumbers"/> 	
+     		<schema name="AuthFailNumbers" type="unsignedInt"  getter="sk_tr069_get_authfailnumbers"/> 	
+     		<schema name="AuthFailInfo" type="string"  getter="sk_tr069_get_authfailnumbers"/> 	
+     		<schema name="MultiReqNumbers" type="unsignedInt" getter="sk_tr069_get_multireqnumbers"/>
+     		<schema name="MultiRRT" type="unsignedInt" getter="sk_tr069_get_multirrt"/> 
+     		<schema name="MultiFailNumbers" type="unsignedInt"  getter="sk_tr069_get_multirrt"/> 	
+     		<schema name="MultiFailInfo" type="string"  getter="sk_tr069_get_multifailinfo"/> 	
+     		<schema name="Error" type="string"  getter="sk_tr069_get_error"/> 
+     		<schema name="BufferInfo" type="string"  getter="sk_tr069_get_bufferinfo"/> 		
+     		<schema name="RTSTInfo" type="string"  getter="sk_tr069_get_rtspinfo"/> 	
+     		<schema name="IGMPInfo" type="string"  getter="sk_tr069_get_igmpinfo"/>	
+     		<schema name="HTTPInfo" type="string"  getter="sk_tr069_get_httpinfo"/>	
+     		<schema name="VodReqNumbers" type="unsignedInt" getter="sk_tr069_get_vodreqnumber"/> 	
+     		<schema name="VodRRT" type="unsignedInt" getter="sk_tr069_get_vodrrt"/> 
+     		<schema name="VodFailNumbers" type="unsignedInt"  getter="sk_tr069_get_vodfailnumber"/> 	
+     		<schema name="VodFailInfo" type="string"  getter="sk_tr069_get_vodfailinfo"/> 	
+     		
+     		<schema name="HTTPReqNumbers" type="unsignedInt" getter="sk_tr069_get_httpreqnumber"/> 	
+     		<schema name="HTTPRRT" type="unsignedInt" getter="sk_tr069_get_httprrt"/> 
+     		<schema name="HTTPFailNumbers" type="unsignedInt" getter="sk_tr069_get_httpfailnumber"/> 	
+     		<schema name="HTTPFailInfo" type="string" getter="sk_tr069_get_httpfailinfo"/> 	  
+     			
+     		<schema name="MultiAbendNumbers" type="unsignedInt" getter="sk_tr069_get_multiabendnumber"/> 	  	
+     		<schema name="VODAbendNumbers" type="unsignedInt" getter="sk_tr069_get_vodabendnumber"/> 	  	
+     		<schema name="MultiAbendUPNumbers" type="unsignedInt" getter="sk_tr069_get_multiabendupnumber"/> 	  	
+     		<schema name="VODUPAbendNumbers" type="string"  getter="sk_tr069_get_vodabendupnumber"/> 	
+     	
+				<schema name="HD_MultiAbendNumbers" type="unsignedInt" getter="sk_tr069_get_multiabendnumber"/> 	  	
+     		<schema name="HD_MultiAbendUPNumbers" type="unsignedInt" getter="sk_tr069_get_multiabendupnumber"/> 	  	
+     		<schema name="HD_VODUPAbendNumbers" type="string"  getter="sk_tr069_get_vodabendupnumber"/>  
+     		<schema name="HD_VODAbendNumbers" type="unsignedInt"  getter="sk_tr069_get_vodabendnumber"/> 
+     		     		
+     		
+     		<schema name="PlayErrorNumbers" type="unsignedInt" getter="sk_tr069_get_playerrornumber"/> 	  	
+     		<schema name="PlayErrorInfo" type="string"  getter="sk_tr069_get_playerrorinfo"/> 
+     		    		     		
+     		<schema name="MultiPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr1"/> 	  	
+     		<schema name="MultiPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr2"/> 	  	
+     		<schema name="MultiPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr3"/> 	  	
+     		<schema name="MultiPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr4"/> 	  	
+     		<schema name="MultiPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr5"/> 	
+   
+        <schema name="HD_MultiPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr1"/> 	  	
+     		<schema name="HD_MultiPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr2"/> 	  	
+     		<schema name="HD_MultiPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr3"/> 	  	
+     		<schema name="HD_MultiPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr4"/> 	  	
+     		<schema name="HD_MultiPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr5"/> 	  		
+     		
+     		<schema name="FECMultiPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr1"/> 	  	
+     		<schema name="FECMultiPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr2"/> 	  	
+     		<schema name="FECMultiPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr3"/> 	  	
+     		<schema name="FECMultiPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr4"/> 	  	
+     		<schema name="FECMultiPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr5"/> 	
+     		     		  	
+       	<schema name="HD_FECMultiPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr1"/> 	  	
+     		<schema name="HD_FECMultiPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr2"/> 	  	
+     		<schema name="HD_FECMultiPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr3"/> 	  	
+     		<schema name="HD_FECMultiPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr4"/> 	  	
+     		<schema name="HD_FECMultiPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr5"/> 	  
+     		    		     		  	
+     		<schema name="VODPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr1"/> 	  	
+     		<schema name="VODPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr2"/> 	  	
+     		<schema name="VODPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr3"/> 	  	
+     		<schema name="VODPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr4"/> 	  	
+     		<schema name="VODPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr5"/> 	 
+  
+       	<schema name="HD_VODPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr1"/> 	  	
+     		<schema name="HD_VODPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr2"/> 	  	
+     		<schema name="HD_VODPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr3"/> 	  	
+     		<schema name="HD_VODPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr4"/> 	  	
+     		<schema name="HD_VODPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr5"/> 
+  
+     		<schema name="ARQVODPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr1"/> 	  	
+     		<schema name="ARQVODPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr2"/> 	  	
+     		<schema name="ARQVODPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr3"/> 	  	
+     		<schema name="ARQVODPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr4"/> 	  	
+     		<schema name="ARQVODPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr5"/> 
+     		     		
+     		<schema name="MultiBitRateR1Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater1"/> 	  	
+     		<schema name="MultiBitRateR2Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater2"/> 	  	
+     		<schema name="MultiBitRateR3Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater3"/> 	  	
+     		<schema name="MultiBitRateR4Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater4"/> 	  	
+     		<schema name="MultiBitRateR5Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater5"/> 
+
+     		<schema name="VODBitRateR1Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater1"/> 	  	
+     		<schema name="VODBitRateR2Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater2"/> 	  	
+     		<schema name="VODBitRateR3Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater3"/> 	  	
+     		<schema name="VODBitRateR4Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater4"/> 	  	
+     		<schema name="VODBitRateR5Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater5"/>      		     		     		 	
+
+     		<schema name="BufferIncNmb" type="unsignedInt" getter="sk_tr069_get_bufferincnmb"/> 	  	
+     		<schema name="BufferDecNmb" type="unsignedInt" getter="sk_tr069_get_bufferdecnmb"/>  
+     		    		     		 	
+     		<schema name="FramesLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr1"/> 	  	
+     		<schema name="FramesLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr2"/> 	  	
+     		<schema name="FramesLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr3"/> 	  	
+     		<schema name="FramesLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr4"/> 	  	
+     		<schema name="FramesLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr5"/> 	  	
+    	</schema> 
+	    <schema name="StatisticConfiguration" type="object">  
+      	<schema name="Enable"  type="boolean"  write="W" setter="sk_tr069_set_qos_enable"/>
+      	<schema name="LogServerUrl" type="string"  write="W" getter="sk_tr069_get_log_uploadurl" setter="sk_tr069_set_log_uploadurl" />
+      	<schema name="LogUploadInterval" type="unsignedInt"  write="W" getter="sk_tr069_get_log_uploadinterval" setter="sk_tr069_set_log_uploadinterval"/>
+      	<schema name="LogRecordInterval" type="unsignedInt"  write="W" getter="sk_tr069_get_log_recordinterval" setter="sk_tr069_set_log_recordinterval"/>
+      	<schema name="MonitoringInterval" type="unsignedInt"   setter="sk_tr069_set_log_monitorinterval"/>
+      	<schema name="IsFileorRealTime" type="string"   setter="sk_tr069_set_log_fileorrealtime"/>
+      	<schema name="StatInterval" type="unsignedInt"   setter="sk_tr069_set_log_monitorinterval"/>
+      	<schema name="PacketsLostR1" type="unsignedInt"    setter="sk_tr069_set_log_plostr1"/>
+      	<schema name="PacketsLostR2" type="unsignedInt"    setter="sk_tr069_set_log_plostr2"/>
+      	<schema name="PacketsLostR3" type="unsignedInt"   setter="sk_tr069_set_log_plostr3"/>
+      	<schema name="PacketsLostR4" type="unsignedInt"     setter="sk_tr069_set_log_plostr4"/>
+      	<schema name="PacketsLostR5" type="unsignedInt"    setter="sk_tr069_set_log_plostr5"/>
+      	
+      	<schema name="HD_PacketsLostR1" type="unsignedInt"     setter="sk_tr069_set_log_plostr1"/>
+      	<schema name="HD_PacketsLostR2" type="unsignedInt"    setter="sk_tr069_set_log_plostr2"/>
+      	<schema name="HD_PacketsLostR3" type="unsignedInt"   setter="sk_tr069_set_log_plostr3"/>
+      	<schema name="HD_PacketsLostR4" type="unsignedInt"   setter="sk_tr069_set_log_plostr4"/>
+      	<schema name="HD_PacketsLostR5" type="unsignedInt"   setter="sk_tr069_set_log_plostr5"/>
+      	
+      	<schema name="FramesLostR1" type="unsignedInt"  default="0"/>
+      	<schema name="FramesLostR2" type="unsignedInt"  default="0"/>
+      	<schema name="FramesLostR3" type="unsignedInt"  default="0"/>
+      	<schema name="FramesLostR4" type="unsignedInt"  default="0"/>
+      	<schema name="FramesLostR5" type="unsignedInt" default="0"/>       	
+      	
+      	<schema name="BitRateR1" type="unsignedInt" setter="sk_tr069_set_log_bitrater1"/>
+      	<schema name="BitRateR2" type="unsignedInt" setter="sk_tr069_set_log_bitrater2"/>
+      	<schema name="BitRateR3" type="unsignedInt"  setter="sk_tr069_set_log_bitrater3"/>
+      	<schema name="BitRateR4" type="unsignedInt"  setter="sk_tr069_set_log_bitrater4"/>
+      	<schema name="BitRateR5" type="unsignedInt"  setter="sk_tr069_set_log_bitrater5"/> 
+  
+      	<schema name="HD_BitRateR1" type="unsignedInt"  setter="sk_tr069_set_log_bitrater1"/>
+      	<schema name="HD_BitRateR2" type="unsignedInt"  setter="sk_tr069_set_log_bitrater2"/>
+      	<schema name="HD_BitRateR3" type="unsignedInt"  setter="sk_tr069_set_log_bitrater3"/>
+      	<schema name="HD_BitRateR4" type="unsignedInt"  setter="sk_tr069_set_log_bitrater4"/> 
+      	<schema name="HD_BitRateR5" type="unsignedInt"  setter="sk_tr069_set_log_bitrater5"/> 
+    </schema> 
+    <schema name="SQMConfiguration" type="object">
+    <schema name="SQMServerPort" type="unsignedInt"   default="37001"/>
+	<schema name="SQMLisenPort" type="unsignedInt"   default="37000"/> 
+	</schema>
+	<schema name="PhyMemSize" type="string"   default="1PC 64X16Mbit/128Mbyte DDR2 800MHz"/>
+	<schema name="StorageSize" type="string" default="1PC 1Gbit NAND FLASH"/>
+	<schema name="STBID" type="string" constraint="32" inform="true" getter="sk_tr069_get_stbid"/>
+	<schema name="ServiceInfo" type="object">
+      	<schema name="ServiceList" type="string" constraint="1024" default="BurstControl"/>
+        <schema name="PPPoEID" type="string" constraint="256" getter="sk_tr069_get_pppoeid"  setter="sk_tr069_set_pppoeid"/>
+       	<schema name="PPPoEPassword" type="string" constraint="256" getter="sk_tr069_get_pppoepass"  setter="sk_tr069_set_pppoepass"/>
+       	<schema name="DHCPID" type="string" constraint="256" getter="sk_tr069_get_dhcpid"  setter="sk_tr069_set_dhcpid"/>
+       	<schema name="DHCPPassword" type="string" constraint="256" getter="sk_tr069_get_dhcppass"  setter="sk_tr069_set_dhcppass"/>
+      	<schema name="UserID" type="string" constraint="64" getter="sk_tr069_get_authuser"  setter="sk_tr069_set_authuser"/>
+       	<schema name="Password" type="string" constraint="64"   setter="sk_tr069_set_authpass"/>
+       	<schema name="UserIDPassword" type="string" constraint="64"   setter="sk_tr069_set_authpass"/>
+       	<schema name="AuthURL" type="string" constraint="256" getter="sk_tr069_get_authurl"  setter="sk_tr069_set_authurl"/>
+       	<schema name="AuthURLBackup" type="string" constraint="256" getter="sk_tr069_get_authurlbak"  setter="sk_tr069_set_authurlbak"/>
+       	
+      </schema>  
+	  </schema>
+
+		 <schema name="GatewayInfo" type="object">
+		 			 <schema name="ManufacturerOUI" type="string" constraint="6" write="W" default="990104"/>
+		 			 <schema name="ProductClass" type="string" constraint="64" getter="sk_tr069_get_product_type"/>
+		 			 <schema name="SerialNumber" type="string" constraint="64" getter="sk_tr069_get_stbid"  />
+		  </schema>
+
+    <schema name="ManagementServer" type="object">
+    	<schema name="URL" type="string" constraint="256" write="W"  getter="sk_tr069_get_acsurl" setter="sk_tr069_set_acsurl"/>
+    	<schema name="URLBackup" type="string"  notification="active"  write="W" getter="sk_tr069_get_acsurl" setter="sk_tr069_set_acsurl"/>  
+    	<extension name="Timeout" type="unsignedInt"/>
+    	<schema name="Username" type="string" constraint="256" write="W"  getter="sk_tr069_get_acsuser" setter="sk_tr069_set_acsuser"/>
+      <schema name="Password" type="string" constraint="256" write="W"  getter="sk_tr069_get_acspass" setter="sk_tr069_set_acspass"/>
+      <schema name="PeriodicInformEnable" type="boolean" write="W" getter="sk_tr069_get_inform_enable" setter="sk_tr069_set_inform_enable"/>
+      <schema name="PeriodicInformInterval" type="unsignedInt" write="W" getter="sk_tr069_get_period_inform_interval" setter="sk_tr069_set_period_inform_interval"/>
+      <schema name="PeriodicInformTime" type="dateTime" write="W" getter="sk_tr069_get_period_inform_time" setter="sk_tr069_set_period_inform_time" />
+      <schema name="ParameterKey" type="string" constraint="32" inform="true"  default="12345"/>
+      <schema name="ConnectionRequestURL" type="string" constraint="256" inform="true"  notification="active" getter="sk_tr069_get_request_url"/>
+      <schema name="ConnectionRequestUsername" type="string" constraint="256" inform="true" write="W" getter="sk_tr069_get_requser" setter="sk_tr069_set_requser" />
+      <schema name="ConnectionRequestPassword" type="string" constraint="256" write="W" getter="sk_tr069_get_reqpass" setter="sk_tr069_set_reqpass" />
+      <extension name="ConnectionRequestInterval" type="unsignedInt"  default="0"/>
+      <schema name="UpgradesManaged" type="boolean" write="W" getter="sk_tr069_get_upgrade_manage" setter="sk_tr069_set_upgrade_manage" />
+      <schema name="KickURL" type="string" constraint="256"  default=""/>
+      <schema name="DownloadProgressURL" type="string" constraint="256"  default=""/>
+      <schema name="IPTVServiceUsername" type="string" constraint="256"  default=""/>
+      <schema name="NATDetected" type="boolean" inform="true" getter="sk_tr069_get_natdetect" />
+      <schema name="STUNEnable" type="boolean" write="W"  default="0"/>
+      <schema name="STUNServerAddress" type="string" constraint="256" write="W"  default="stunaddress" />
+      <schema name="STUNServerPort" type="unsignedInt" write="W"  default="3478"/>
+      <schema name="STUNUsername" type="string" constraint="256" write="W"  default="stunuser" />
+      <schema name="STUNPassword" type="string" constraint="256" write="W"  default="stunpass" />
+      <schema name="UDPConnectionRequestAddress" type="string" constraint="128" getter="sk_tr069_get_udpconnectaddr" />
+      <schema name="UDPConnectionRequestURL" type="string" constraint="128" getter="sk_tr069_get_udpconnectaddr" />
+      <schema name="UDPConnectionRequestAddressNotificationLimit" type="unsignedInt" write="W"  getter="sk_tr069_get_address_notificationlimit" setter="sk_tr069_set_address_notificationlimit" />
+      <schema name="STUNMaximumKeepAlivePeriod" type="unsignedInt"  write="W"  default="180" />
+      <schema name="STUNMinimumKeepAlivePeriod" type="unsignedInt"  write="W"  default="60" />
+      <schema name="URLModifyFlag" type="string" constraint="32"  write="W" getter="sk_tr069_get_urlchange" setter="sk_tr069_set_urlchange"/>
+    </schema>
+    <schema name="Config" type="object">
+    	 <schema name="ConfigFile" type="string" notification="active"  write="W"  default="tr069.xml" />  
+    	 <schema name="PersistentData" type="string" notification="active"  write="W"  default="PersistentData" />  
+    	 
+    </schema>
+    <schema name="Time" type="object">
+    	<schema name="NTPServer1" type="string"  notification="active"  write="W" getter="sk_tr069_get_ntp_server" setter="sk_tr069_set_ntp_server"/>  
+    	<schema name="NTPServer2" type="string"  notification="active"  write="W" getter="sk_tr069_get_ntp_server2" setter="sk_tr069_set_ntp_server2"/>
+    	<schema name="CurrentLocalTime" type="dateTime" notification="active"   write="W" getter="sk_tr069_get_current_time"  setter="sk_tr069_set_current_time" />  
+    	<schema name="LocalTimeZone" type="string" notification="active"  write="W"  getter="sk_tr069_get_time_zone"  setter="sk_tr069_set_time_zone"/>  
+    </schema>	
+    <schema name="UserInterface" type="object">
+    	<schema name="PasswordRequired" type="boolean"  write="W" default="0"/> 
+    	<schema name="PasswordUserSelectable" type="boolean"  write="W" default="0"/>  
+    	<schema name="UpgradeAvailable" type="boolean"  write="W" default="0"/>  
+    	<schema name="WarrantyDate"  type="dateTime"  write="W" />
+    	<schema name="ISPName" type="string"  write="W" default="ISPName"/>   
+    	<schema name="ISPHelpDesk" type="string"  write="W" default="ISPHelpDesk"/>   
+    	<schema name="ISPHomePage" type="string"  write="W" default="ISPHomePage"/>   
+    	<schema name="ISPHelpPage" type="string"  write="W" default="ISPHelpPage"/>    
+    	<schema name="ISPLogo" type="string"  write="W" default="ISPLogo"/>    
+      <schema name="ISPLogoSize" type="string"  write="W" default="ISPLogoSize"/> 
+      <schema name="ISPMailServer" type="string"  write="W" default="ISPMailServer"/>     
+      <schema name="ISPNewsServer" type="string"  write="W" default="ISPNewsServer"/>      
+    	<schema name="TextColor" type="string"  write="W" default="000000"/>   
+    	<schema name="BackgroundColor" type="string"  write="W" default="00ff00"/>   
+    	<schema name="ButtonColor" type="string"  write="W" default="ff00ff"/>   
+    	<schema name="ButtonTextColor" type="string"  write="W" default="000000"/>   
+    	 
+    	
+    	<schema name="AvailableLanguages" type="string"  write="W" default="0:chinese,1:english"/>  
+    	<schema name="CurrentLanguage" type="string"  write="W"  default="chinese" />  
+      <schema name="UserUpdateServer" type="string"  write="W"  default="http://192.168.11.16/update" />  
+    	<schema name="AutoUpdateServer"  type="string" notification="passive" getter="sk_tr069_get_upgrade_url" setter="sk_tr069_set_upgrade_url" />
+    
+    </schema>	          
+    <schema name="LAN" type="object">
+    	<schema name="AddressingType" type="string" notification="passive"  inform="true"  getter="sk_tr069_get_address_type"/>
+      <schema name="IPAddress" type="string" notification="passive" inform="true" getter="sk_tr069_get_stb_ip" setter="sk_tr069_set_stb_ip"  />
+      <schema name="SubnetMask" type="string" notification="passive" getter="sk_tr069_get_stb_mask" setter="sk_tr069_set_stb_mask"/>
+      <schema name="DefaultGateway" type="string"  notification="passive" getter="sk_tr069_get_stb_gateway" setter="sk_tr069_set_stb_gateway"/> 
+      <schema name="DNSServers" type="string" notification="passive" getter="sk_tr069_get_stb_dns"  setter="sk_tr069_set_stb_dns" /> 
+      <schema name="MACAddress" type="string" notification="passive" inform="true" getter="sk_tr069_get_stb_mac" setter="sk_tr069_set_stb_mac" />	  
+      <schema name="MACAddressOverride" type="string" constraint="32" getter="sk_tr069_get_stb_macoverride" setter="sk_tr069_set_stb_macoverride"/> 
+      <schema name="DHCPOptionNumberOfEntries" type="string" constraint="32" default="0"/> 
+      <schema name="IsSupportIPv6" type="boolean" notification="passive" default="1"/> 
+      <schema name="DHCPOption" type="object">
+      	<schema name="1" type="object">
+      	 <schema name="option" type="string" notification="passive" default="60"/>
+      	 	</schema>
+      	 	<schema name="2" type="object">
+      	 <schema name="option" type="string" notification="passive" default="125"/> 
+      	 	</schema>
+      </schema>
+      <schema name="Stats" type="object">
+      	<schema name="ConnectionUpTime" type="unsignedInt" default="7200"/>
+      	<schema name="TotalBytesSent" type="unsignedInt" default="123000000"/>
+      	<schema name="TotalBytesReceived" type="unsignedInt" default="34125424"/>
+      	<schema name="TotalPacketsSent" type="unsignedInt" default="3465432"/>
+      	
+      	<schema name="TotalPacketsReceived" type="unsignedInt"  default="1023346" />
+      	<schema name="CurrentDayInterval" type="unsignedInt"  getter="sk_tr069_get_currday_interval"/>
+      	<schema name="CurrentDayBytesSent" type="unsignedInt"  getter="sk_tr069_get_currdaybyte_sent" />
+      	<schema name="CurrentDayBytesReceived" type="unsignedInt"  getter="sk_tr069_get_currdaybyte_recv" />
+      	<schema name="CurrentDayPacketsSent" type="unsignedInt"  getter="sk_tr069_get_currdaypacket_sent"/>
+      	
+      	<schema name="CurrentDayPacketsReceived" type="unsignedInt"  getter="sk_tr069_get_currdaypacket_recv"/>
+      	<schema name="QuarterHourInterval" type="unsignedInt"  getter="sk_tr069_get_qhour_interval"/>
+      	<schema name="QuarterHourBytesSent" type="unsignedInt"  getter="sk_tr069_get_qhourbyte_sent" />
+      	
+      	<schema name="QuarterHourBytesReceived" type="unsignedInt"  getter="sk_tr069_get_qhourbyte_recv"/>
+      	<schema name="QuarterHourPacketsSent" type="unsignedInt"  getter="sk_tr069_get_qhourpacket_sent"/>
+      	
+      	<schema name="QuarterHourPacketsReceived" type="unsignedInt"  getter="sk_tr069_get_qhourpacket_recv"/>
+       </schema>
+      
+      <schema name="IPPingDiagnostics" type="object">
+      	<schema name="DiagnosticsState" type="string"  write="W" getter="sk_tr069_get_ping_state"/>  
+      	<schema name="Host" type="string"  write="W" setter="sk_tr069_set_ping_host" />
+      	<schema name="NumberOfRepetitions" type="unsignedInt"  write="W"  setter="sk_tr069_set_ping_repeat"/>
+      	<schema name="Timeout" type="unsignedInt"  write="W"  setter="sk_tr069_set_ping_timeout"/>
+      	<schema name="DataBlockSize" type="unsignedInt"  write="W"  setter="sk_tr069_set_ping_datasize" />
+      	<schema name="DSCP" type="unsignedInt"  write="W"  setter="sk_tr069_set_ping_dscp"/>
+      	<schema name="SuccessCount" type="unsignedInt"  write="W" getter="sk_tr069_get_ping_successcount"/>
+        <schema name="FailureCount" type="unsignedInt"  write="W" getter="sk_tr069_get_ping_failurecount"/>
+        <schema name="AverageResponseTime" type="unsignedInt"  write="W" getter="sk_tr069_get_ping_average"/>
+        <schema name="MinimumResponseTime" type="unsignedInt"  write="W" getter="sk_tr069_get_ping_mintime"/>
+        <schema name="MaximumResponseTime" type="unsignedInt"  write="W" getter="sk_tr069_get_ping_maxtime"/>
+      </schema>	
+      <schema name="TraceRouteDiagnostics" type="object">
+      	<schema name="DiagnosticsState" type="string"  write="W" getter="sk_tr069_get_traceroute_state"/>  
+      	<schema name="Host" type="string"  write="W" setter="sk_tr069_set_traceroute_host"/>
+      	<schema name="Timeout" type="unsignedInt"  write="W" default="0" setter="sk_tr069_set_traceroute_timeout"/>
+      	<schema name="DataBlockSize" type="unsignedInt"  write="W" setter="sk_tr069_set_traceroute_datasize" getter="sk_tr069_get_traceroute_datasize"/>
+      	<schema name="MaxHopCount" type="unsignedInt"  write="W" default="30"  setter="sk_tr069_set_traceroute_maxhopcount" getter="sk_tr069_get_traceroute_maxhopcount"/>
+      	<schema name="DSCP" type="unsignedInt"  write="W" default="0"  setter="sk_tr069_set_traceroute_dscp"/>
+      	<schema name="ResponseTime" type="unsignedInt"  write="W" getter="sk_tr069_get_traceroute_responsetime"/>
+      	<schema name="NumberOfRouteHops" type="unsignedInt" write="W" getter="sk_tr069_get_traceroute_numberofroute"/>
+      	<schema name="RouteHops" type="object">
+      		<schema name="1" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host1"/>  
+      		</schema>
+      		<schema name="2" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host2"/>  
+      		</schema>
+      		<schema name="3" type="object">
+      			<schema name="HopHost" type="string" getter="sk_tr069_get_traceroute_host3"/>  
+      		</schema>
+      		<schema name="4" type="object">
+      			<schema name="HopHost" type="string" getter="sk_tr069_get_traceroute_host4"/>  
+      		</schema>
+      		<schema name="5" type="object">
+      			<schema name="HopHost" type="string" getter="sk_tr069_get_traceroute_host5"/>  
+      		</schema>
+      		<schema name="6" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host6"/>  
+      		</schema>
+      		<schema name="7" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host7"/>  
+      		</schema>
+      		<schema name="8" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host8"/>  
+      		</schema>
+      		<schema name="9" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host9"/>  
+      		</schema>
+      		<schema name="10" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host10"/>
+      		</schema>
+			<schema name="11" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host11"/>  
+      		</schema>
+      		<schema name="12" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host12"/>  
+      		</schema>
+      		<schema name="13" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host13"/>  
+      		</schema>
+      		<schema name="14" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host14"/>  
+      		</schema>
+      		<schema name="15" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host15"/>  
+      		</schema>
+      		<schema name="16" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host16"/>  
+      		</schema>
+      		<schema name="17" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host17"/>  
+      		</schema>
+      		<schema name="18" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host18"/>  
+      		</schema>
+      		<schema name="19" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host19"/>  
+      		</schema>
+      		<schema name="20" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host20"/>
+      		</schema>      	
+			<schema name="21" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host21"/>  
+      		</schema>
+      		<schema name="22" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host22"/>  
+      		</schema>
+      		<schema name="23" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host23"/>  
+      		</schema>
+      		<schema name="24" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host24"/>  
+      		</schema>
+      		<schema name="25" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host25"/>  
+      		</schema>
+      		<schema name="26" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host26"/>  
+      		</schema>
+      		<schema name="27" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host27"/>  
+      		</schema>
+      		<schema name="28" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host28"/>  
+      		</schema>
+      		<schema name="29" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host29"/>  
+      		</schema>
+      		<schema name="30" type="object">
+      			<schema name="HopHost" type="string"  getter="sk_tr069_get_traceroute_host30"/>
+      		</schema>      			
+      	</schema>
+      </schema>	
+     </schema>
+    <schema name="STBService" type="object">
+	    <schema name="1" type="object">
+			<schema name="StreamingControlProtocols" type="string" inform="true" write="W"  default="RTSP,IGMPv2"/>  
+			<schema name="StreamingTransportProtocols" type="string" inform="true" write="W" default="UDP,TCP,RTP"/>  
+			<schema name="StreamingTransportControlProtocols" type="string" inform="true" write="W" default="RTCP"/>  
+			<schema name="DownloadTransportProtocols" type="string" inform="true" write="W" default="HTTP,HTTPS,FTP,FTPS,TFTP"/>  
+			<schema name="MultiplexTypes" type="string" inform="true" write="W" default="MPEG1-SYS,MPEG2-PS,VOB,MPEG2-TS"/>     	
+			<schema name="MaxDejitteringBufferSize" type="string" inform="false" write="W" default="0"/>  
+			<schema name="AudioStandards" type="string"  write="W" inform="false" default="MPEG1-Part2-Layer2,MPEG1-Part2-Layer3,MPEG2-Part3-Layer2,MPEG2-Part3-Layer3,MP3-Surround,DOLBY-AC3"/>  
+			<schema name="VideoStandards" type="string"  write="W"  default="MPEG2-Part2,H.264"/>  
+			<schema name="Capabilities" type="object">
+				<schema name="MaxActiveAVStreams" type="string" inform="false"  default="1"/> 
+				<schema name="MaxActiveAVPlayers" type="string" inform="false"  default="1"/> 
+				<schema name="AudioDecoder" type="object">
+				<schema name="AudioStandards" type="string" inform="false"  default="MPEG1-Part2-Layer2,MPEG1-Part2-Layer3,MPEG2-Part3-Layer2,MPEG2-Part3-Layer3,MP3-Surround,DOLBY-AC3"/>
+			</schema>	
+				<schema name="VideoDecoder" type="object">		
+				<schema name="VideoStandards" type="string" inform="false"  default="MPEG2-Part2,H.264"/>	
+			</schema>
+				<schema name="CA" type="object">
+				<schema name="CASystems" type="string" inform="false"  default="VMX ULTRA"/>	
+			</schema>
+				<schema name="DRM" type="object">
+				<schema name="DRMSystems" type="string" inform="false" default="VMX ULTRA"/>	
+			</schema>
+				<schema name="ServiceMonitoring" type="object">
+				<schema name="MaxActiveMainStreams" type="int" inform="false"   default="1"/>	
+				<schema name="MinSampleInterval" type="int"  inform="false"  default="1"/>
+				<schema name="MaxReportSamples" type="int"  inform="false"  default="1"/>
+				<schema name="HighLevelMetricNames" type="string" inform="false"   default="1"/>
+			</schema>
+			</schema>
+			<schema name="Components" type="object">
+				<schema name="FrontEndNumberOfEntries" type="string"  inform="false"  default="1"/> 
+				<schema name="AudioDecoderNumberOfEntries" type="string" inform="false"   default="1"/> 
+				<schema name="VideoDecoderNumberOfEntries" type="string"  inform="false"  default="1"/> 
+				<schema name="AudioOutputNumberOfEntries" type="string"  inform="false"  default="1"/> 
+				<schema name="VideoOutputNumberOfEntries" type="string"  inform="false" default="1"/> 
+				<schema name="FrontEnd" type="object">
+					<schema name="1" type="object">
+						<schema name="Status" type="string"  inform="false" default="Enable"/>	
+						<schema name="Name" type="string"   inform="false"  default="VSP"/>
+						<schema name="IP" type="object">
+							<schema name="Inbound" type="object">
+								<schema name="1" type="object">
+									<schema name="StreamingTransportProtocol" type="string" inform="false" getter="sk_tr069_get_StreamingTransportProtocol"/>	
+									<schema name="StreamingControlProtocol" type="string" inform="false" getter="sk_tr069_get_StreamingControlProtocol"/>
+									<schema name="StreamingTransportControlProtocol" type="string" inform="false" getter="sk_tr069_get_StreamingTransportControlProtocol"/>
+									<schema name="MultiplexType" type="string" inform="false" getter="sk_tr069_get_MultiplexType"/>
+									<schema name="DownloadTransportProtocol" type="string" inform="false" getter="sk_tr069_get_DownloadTransportProtocol"/>
+									<schema name="SourceAddress" type="string"  inform="false"  getter="sk_tr069_get_SourceAddress"/>
+									<schema name="SourcePort" type="string" inform="false"  getter="sk_tr069_get_SourcePort"/>
+									<schema name="DestinationAddress" type="string" inform="false" getter="sk_tr069_get_DestinationAddress"/>
+									<schema name="DestinationPort" type="string" inform="false" getter="sk_tr069_get_DestinationPort"/>
+									<schema name="URI" type="string" inform="false" getter="sk_tr069_get_URI"/>
+								</schema>	
+							</schema>
+						</schema>
+					</schema>	
+				</schema>
+				<schema name="AudioDecoder" type="object">
+					<schema name="1" type="object">
+						<schema name="Status" type="string" inform="false"   default="Enable"/>	
+						<schema name="Name" type="string" inform="false"  default="null"/>
+						<schema name="AudioStandard" type="string" inform="false"  getter="sk_tr069_get_AudioStandard"/>
+					</schema>	
+				</schema>
+				<schema name="VideoDecoder" type="object">
+					<schema name="1" type="object">
+						<schema name="Status" type="string" inform="false" write="W"  default="Enable"/>	
+						<schema name="Name" type="string" inform="false" write="W"  default="null"/>
+						<schema name="ContentAspectRatio" inform="false" type="string"  getter="sk_tr069_get_ContentAspectRatio"/>
+					</schema>	
+				</schema>
+			</schema>
+			<schema name="AVStreams" type="object">
+				<schema name="ActiveAVStreams" type="string"  inform="false" default="1"/> 
+				<schema name="AVStreamNumberOfEntries" type="string" inform="false"   default="1"/> 
+			</schema>
+			<schema name="ServiceMonitoring" type="object">
+				<schema name="MainStream" type="object">
+					<schema name="1" type="object">
+						<schema name="Gmin" type="int"  inform="false"  write="W"  getter="sk_tr069_get_Gmin" setter="sk_tr069_set_Gmin"/> 
+						<schema name="SevereLossMinDistance"  inform="false" type="int" write="W"  getter="sk_tr069_get_SevereLossMinDistance" setter="sk_tr069_set_SevereLossMinDistance"/>
+						<schema name="SevereLossMinLength" inform="false" type="int"  write="W"  getter="sk_tr069_get_SevereLossMinLength" setter="sk_tr069_set_SevereLossMinLength"/> 						
+						<schema name="Total" type="object">
+							<schema name="Reset" type="string"  write="W"  getter="sk_tr069_get_acsurl" setter="sk_tr069_set_acsurl"/> 
+							<schema name="ResetTime" type="int" inform="false" getter="sk_tr069_get_ResetTime"/> 
+							<schema name="DejitteringStats" type="object">
+								<schema name="Overruns" type="int" inform="false" getter="sk_tr069_get_Total_Overruns"/>
+								<schema name="Underruns" type="int" inform="false" getter="sk_tr069_get_Total_Underruns"/>
+							</schema>
+							<schema name="RTPStats" type="object">
+								<schema name="PacketsReceived" type="int" inform="false" getter="sk_tr069_get_Total_PacketsReceived"/>
+								<schema name="PacketsLost" type="int" inform="false" getter="sk_tr069_get_Total_PacketsLost"/>
+								<schema name="LossEvents" type="int" inform="false" getter="sk_tr069_get_Total_LossEvents"/>
+								<schema name="SevereLossIndexCount" type="int" inform="false" getter="sk_tr069_get_Total_SevereLossIndexCount"/>
+							</schema>
+							<schema name="VideoResponseStats" type="object">
+								<schema name="MinimumVideoSystemResponse" type="int" inform="false" getter="sk_tr069_get_MinimumVideoSystemResponse"/>
+								<schema name="MaximumVideoSystemResponse" type="int" inform="false" getter="sk_tr069_get_MaximumVideoSystemResponse"/>
+							</schema>
+						</schema>
+						<schema name="Sample" type="object">	
+							<schema name="SampleSeconds" type="int" inform="false" getter="sk_tr069_get_SampleSeconds"/> 
+							<schema name="SignificantChanges" type="string" inform="false" getter="sk_tr069_get_SignificantChanges"/> 
+							<schema name="DejitteringStats" type="object">
+								<schema name="SampleSeconds" type="int" inform="false" getter="sk_tr069_get_SampleSeconds"/> 
+								<schema name="Overruns" type="int" inform="false" getter="sk_tr069_get_Overruns"/> 
+								<schema name="Underruns" type="int" inform="false" getter="sk_tr069_get_Underruns"/>
+							</schema>
+							<schema name="RTPStats" type="object">
+								<schema name="SampleSeconds" type="int" inform="false" getter="sk_tr069_get_SampleSeconds"/>
+								<schema name="PacketsReceived" type="int" inform="false" getter="sk_tr069_get_RTPS_PacketsReceived"/>
+								<schema name="PacketsExpected" type="int" inform="false" getter="sk_tr069_get_RTPS_PacketsExpected"/>
+								<schema name="PacketsLost" type="int" inform="false" getter="sk_tr069_get_RTPS_PacketsLost"/>
+								<schema name="LossEvents" type="int" inform="false" getter="sk_tr069_get_RTPS_LossEvents"/>
+								<schema name="SevereLossIndexCount" type="int" inform="false" getter="sk_tr069_get_RTPS_SevereLossIndexCount"/>
+							</schema>
+						</schema>
+					</schema>
+				</schema>
+			</schema>
+		</schema>
+    </schema>
+  	<schema name="X_CTC_IPTV" type="object">     
+    	<schema name="STBID" type="string" constraint="32" inform="false" getter="sk_tr069_get_stbid"/>
+    	<schema name="PhyMemSize" type="string"   default="1PC 64X16Mbit/128Mbyte DDR2 800MHz"/>  
+    	<schema name="StorageSize" type="string" default="1PC 1Gbit NAND FLASH"/>
+    	<schema name="ForceUpgrade" type="boolean" write="W" getter="sk_tr069_get_force_upgrade"  setter="sk_tr069_set_force_upgrade"/>
+    	<schema name="VQEInfo" type="object">
+    		<schema name="VQEURLBackup" type="string" default=""/>
+    		<schema name="VQEURL" type="string" default=""/>
+    	</schema>	
+    	<schema name="TVMSInfo" type="object">
+    		<schema name="Veryfycode" type="string" default=""/>
+    		<schema name="ResService" type="string" default=""/>
+    		<schema name="ResInterval" type="string" default=""/>
+    		<schema name="PORT" type="string" default=""/>
+    	</schema>	    		
+    	
+    	<schema name="SimpleVer" type="object">
+    		<schema name="IsSimpleVersion" type="string" default=""/>
+    	</schema>	  
+		  <schema name="LogMsg" type="object">
+         <schema name="Enable" type="boolean" getter="sk_tr069_get_log_enable"  setter="sk_tr069_set_log_enable"/>
+         <schema name="MsgOrFile" type="boolean"  getter="sk_tr069_get_logtype"  setter="sk_tr069_set_logtype"/>
+         <schema name="LogFtpServer" type="string" getter="sk_tr069_get_syslog_server"  setter="sk_tr069_set_syslog_server" />
+         <schema name="LogFtpUser" type="string" getter="sk_tr069_get_log_username"  setter="sk_tr069_set_log_username"/>
+         <schema name="LogFtpPassword" type="string"   getter="sk_tr069_get_log_userpass"  setter="sk_tr069_set_log_userpass"/>
+         <schema name="Duration" type="int"  getter="sk_tr069_get_syslog_continue_time"  setter="sk_tr069_set_syslog_continue_time"  />  
+         <schema name="RTSPInfo" type="string" getter="sk_tr069_get_log_rtspinfo"/>
+         <schema name="IGMPInfo" type="string" getter="sk_tr069_get_log_igmpinfo" />
+         <schema name="HTTPInfo" type="string" getter="sk_tr069_get_log_httpinfo" />
+         <schema name="PkgTotalOneSec" type="int"  getter="sk_tr069_get_log_pkgtotal"  />  
+         <schema name="ByteTotalOneSec" type="int"   getter="sk_tr069_get_log_bytetotal" /> 
+         <schema name="PkgLostRate" type="unsignedInt" getter="sk_tr069_get_log_pkglostrate" /> 
+         <schema name="AvarageRate" type="unsignedInt" getter="sk_tr069_get_log_avaragerate" /> 
+         <schema name="BUFFER" type="unsignedInt" getter="sk_tr069_get_log_buffer"  /> 
+         <schema name="ERROR" type="string" constraint="1024" getter="sk_tr069_get_log_error" /> 
+         <schema name="VendorExt" type="string" default=""/>
+         
+			</schema>
+      <schema name="ServiceInfo" type="object">
+      	<schema name="ServiceList" type="string" constraint="1024" default="BurstControl"/>
+        <schema name="PPPoEID" type="string" constraint="256" getter="sk_tr069_get_pppoeid"  setter="sk_tr069_set_pppoeid"/>
+       	<schema name="PPPoEPassword" type="string" constraint="256" getter="sk_tr069_get_pppoepass"  setter="sk_tr069_set_pppoepass"/>
+       	<schema name="DHCPID" type="string" constraint="256" getter="sk_tr069_get_dhcpid"  setter="sk_tr069_set_dhcpid"/>
+       	<schema name="DHCPPassword" type="string" constraint="256" getter="sk_tr069_get_dhcppass"  setter="sk_tr069_set_dhcppass"/>
+      	<schema name="UserID" type="string" constraint="64" getter="sk_tr069_get_authuser"  setter="sk_tr069_set_authuser"/>
+       	<schema name="Password" type="string" constraint="64"   setter="sk_tr069_set_authpass"/>
+       	<schema name="UserPassword" type="string" constraint="64"  setter="sk_tr069_set_authpass"/>
+       	<schema name="AuthURL" type="string" constraint="256" getter="sk_tr069_get_authurl"  setter="sk_tr069_set_authurl"/>
+       	<schema name="AuthURLBackup" type="string" constraint="256" getter="sk_tr069_get_authurlbak"  setter="sk_tr069_set_authurlbak"/>
+       	
+      </schema>  
+	
+	    <schema name="IMSInfo" type="object">
+      	<schema name="SIPAccount" type="string" constraint="32"  default="BurstControl"/>
+      	<schema name="SIPPassword" type="string" constraint="255"  default="SIPPassword" />
+       	<schema name="ImsDomain" type="string" constraint="255"  default="ImsDomain"/>
+       	<schema name="SIPProxy" type="string" constraint="256"  default="SIPProxy"/>
+       	<schema name="SIPProxy_Port" type="unsignedInt"   default="8000"/>
+       	<schema name="BACKUP_Proxy" type="string" constraint="256"  default="BACKUP_Proxy"/>
+       	<schema name="BACKUP_Proxy_Port" type="string" constraint="256"  default="8000"/>
+      </schema> 
+	
+    <schema name="StatisticConfiguration" type="object">  
+      	<schema name="Enable"  type="boolean"  write="W" setter="sk_tr069_set_qos_enable"/>
+      	<schema name="LogServerUrl" type="string"  write="W" getter="sk_tr069_get_log_uploadurl" setter="sk_tr069_set_log_uploadurl" />
+      	<schema name="LogUploadInterval" type="unsignedInt"  write="W" getter="sk_tr069_get_log_uploadinterval" setter="sk_tr069_set_log_uploadinterval"/>
+      	<schema name="LogRecordInterval" type="unsignedInt"  write="W" getter="sk_tr069_get_log_recordinterval" setter="sk_tr069_set_log_recordinterval"/>
+      	<schema name="MonitoringInterval" type="unsignedInt"   setter="sk_tr069_set_log_monitorinterval"/>
+      	<schema name="IsFileorRealTime" type="string"   setter="sk_tr069_set_log_fileorrealtime"/>
+      	<schema name="StatInterval" type="unsignedInt"   setter="sk_tr069_set_log_monitorinterval"/>
+      	<schema name="PacketsLostR1" type="unsignedInt"    setter="sk_tr069_set_log_plostr1"/>
+      	<schema name="PacketsLostR2" type="unsignedInt"    setter="sk_tr069_set_log_plostr2"/>
+      	<schema name="PacketsLostR3" type="unsignedInt"   setter="sk_tr069_set_log_plostr3"/>
+      	<schema name="PacketsLostR4" type="unsignedInt"     setter="sk_tr069_set_log_plostr4"/>
+      	<schema name="PacketsLostR5" type="unsignedInt"    setter="sk_tr069_set_log_plostr5"/>
+      	
+      	<schema name="HD_PacketsLostR1" type="unsignedInt"     setter="sk_tr069_set_log_plostr1"/>
+      	<schema name="HD_PacketsLostR2" type="unsignedInt"    setter="sk_tr069_set_log_plostr2"/>
+      	<schema name="HD_PacketsLostR3" type="unsignedInt"   setter="sk_tr069_set_log_plostr3"/>
+      	<schema name="HD_PacketsLostR4" type="unsignedInt"   setter="sk_tr069_set_log_plostr4"/>
+      	<schema name="HD_PacketsLostR5" type="unsignedInt"   setter="sk_tr069_set_log_plostr5"/>
+      	
+      	<schema name="FramesLostR1" type="unsignedInt"  default="0"/>
+      	<schema name="FramesLostR2" type="unsignedInt"  default="0"/>
+      	<schema name="FramesLostR3" type="unsignedInt"  default="0"/>
+      	<schema name="FramesLostR4" type="unsignedInt"  default="0"/>
+      	<schema name="FramesLostR5" type="unsignedInt" default="0"/>       	
+      	
+      	<schema name="BitRateR1" type="unsignedInt" setter="sk_tr069_set_log_bitrater1"/>
+      	<schema name="BitRateR2" type="unsignedInt" setter="sk_tr069_set_log_bitrater2"/>
+      	<schema name="BitRateR3" type="unsignedInt"  setter="sk_tr069_set_log_bitrater3"/>
+      	<schema name="BitRateR4" type="unsignedInt"  setter="sk_tr069_set_log_bitrater4"/>
+      	<schema name="BitRateR5" type="unsignedInt"  setter="sk_tr069_set_log_bitrater5"/> 
+  
+      	<schema name="HD_BitRateR1" type="unsignedInt"  setter="sk_tr069_set_log_bitrater1"/>
+      	<schema name="HD_BitRateR2" type="unsignedInt"  setter="sk_tr069_set_log_bitrater2"/>
+      	<schema name="HD_BitRateR3" type="unsignedInt"  setter="sk_tr069_set_log_bitrater3"/>
+      	<schema name="HD_BitRateR4" type="unsignedInt"  setter="sk_tr069_set_log_bitrater4"/> 
+      	<schema name="HD_BitRateR5" type="unsignedInt"  setter="sk_tr069_set_log_bitrater5"/> 
+     	</schema> 
+      
+      <schema name="ServiceStatistics" type="object">  
+     		<schema name="Startpoint" type="string"  getter="sk_tr069_get_startpoint"/> 	
+     		<schema name="Endpoint" type="string" getter="sk_tr069_get_endpoint"/> 	
+     		<schema name="AuthNumbers" type="unsignedInt" getter="sk_tr069_get_authnumbers"/> 	
+     		<schema name="AuthFailNumbers" type="unsignedInt"  getter="sk_tr069_get_authfailnumbers"/> 	
+     		<schema name="AuthFailInfo" type="string"  getter="sk_tr069_get_authfailnumbers"/> 	
+     		<schema name="MultiReqNumbers" type="unsignedInt" getter="sk_tr069_get_multireqnumbers"/>
+     		<schema name="MultiRRT" type="unsignedInt" getter="sk_tr069_get_multirrt"/> 
+     		<schema name="MultiFailNumbers" type="unsignedInt"  getter="sk_tr069_get_multirrt"/> 	
+     		<schema name="MultiFailInfo" type="string"  getter="sk_tr069_get_multifailinfo"/> 	
+     		<schema name="Error" type="string"  getter="sk_tr069_get_error"/> 
+     		<schema name="BufferInfo" type="string"  getter="sk_tr069_get_bufferinfo"/> 		
+     		<schema name="RTSTInfo" type="string"  getter="sk_tr069_get_rtspinfo"/> 	
+     		<schema name="IGMPInfo" type="string"  getter="sk_tr069_get_igmpinfo"/>	
+     		<schema name="HTTPInfo" type="string"  getter="sk_tr069_get_httpinfo"/>	
+     		<schema name="VodReqNumbers" type="unsignedInt" getter="sk_tr069_get_vodreqnumber"/> 	
+     		<schema name="VodRRT" type="unsignedInt" getter="sk_tr069_get_vodrrt"/> 
+     		<schema name="VodFailNumbers" type="unsignedInt"  getter="sk_tr069_get_vodfailnumber"/> 	
+     		<schema name="VodFailInfo" type="string"  getter="sk_tr069_get_vodfailinfo"/> 	
+     		
+     		<schema name="HTTPReqNumbers" type="unsignedInt" getter="sk_tr069_get_httpreqnumber"/> 	
+     		<schema name="HTTPRRT" type="unsignedInt" getter="sk_tr069_get_httprrt"/> 
+     		<schema name="HTTPFailNumbers" type="unsignedInt" getter="sk_tr069_get_httpfailnumber"/> 	
+     		<schema name="HTTPFailInfo" type="string" getter="sk_tr069_get_httpfailinfo"/> 	  
+     			
+     		<schema name="MultiAbendNumbers" type="unsignedInt" getter="sk_tr069_get_multiabendnumber"/> 	  	
+     		<schema name="VODAbendNumbers" type="unsignedInt" getter="sk_tr069_get_vodabendnumber"/> 	  	
+     		<schema name="MultiAbendUPNumbers" type="unsignedInt" getter="sk_tr069_get_multiabendupnumber"/> 	  	
+     		<schema name="VODUPAbendNumbers" type="string"  getter="sk_tr069_get_vodabendupnumber"/> 	
+     	
+			<schema name="HD_MultiAbendNumbers" type="unsignedInt" getter="sk_tr069_get_multiabendnumber"/> 	  	
+     		<schema name="HD_MultiAbendUPNumbers" type="unsignedInt" getter="sk_tr069_get_multiabendupnumber"/> 	  	
+     		<schema name="HD_VODUPAbendNumbers" type="string"  getter="sk_tr069_get_vodabendupnumber"/>  
+     		<schema name="HD_VODAbendNumbers" type="unsignedInt"  getter="sk_tr069_get_vodabendnumber"/> 
+     		     		
+     		
+     		<schema name="PlayErrorNumbers" type="unsignedInt" getter="sk_tr069_get_playerrornumber"/> 	  	
+     		<schema name="PlayErrorInfo" type="string"  getter="sk_tr069_get_playerrorinfo"/> 
+     		    		     		
+     		<schema name="MultiPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr1"/> 	  	
+     		<schema name="MultiPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr2"/> 	  	
+     		<schema name="MultiPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr3"/> 	  	
+     		<schema name="MultiPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr4"/> 	  	
+     		<schema name="MultiPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr5"/> 	
+   
+        <schema name="HD_MultiPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr1"/> 	  	
+     		<schema name="HD_MultiPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr2"/> 	  	
+     		<schema name="HD_MultiPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr3"/> 	  	
+     		<schema name="HD_MultiPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr4"/> 	  	
+     		<schema name="HD_MultiPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_multiplostr5"/> 	  		
+     		
+     		<schema name="FECMultiPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr1"/> 	  	
+     		<schema name="FECMultiPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr2"/> 	  	
+     		<schema name="FECMultiPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr3"/> 	  	
+     		<schema name="FECMultiPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr4"/> 	  	
+     		<schema name="FECMultiPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr5"/> 	
+     		     		  	
+       	<schema name="HD_FECMultiPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr1"/> 	  	
+     		<schema name="HD_FECMultiPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr2"/> 	  	
+     		<schema name="HD_FECMultiPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr3"/> 	  	
+     		<schema name="HD_FECMultiPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr4"/> 	  	
+     		<schema name="HD_FECMultiPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_fecmultiplostr5"/> 	  
+     		    		     		  	
+     		<schema name="VODPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr1"/> 	  	
+     		<schema name="VODPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr2"/> 	  	
+     		<schema name="VODPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr3"/> 	  	
+     		<schema name="VODPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr4"/> 	  	
+     		<schema name="VODPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr5"/> 	 
+  
+       	<schema name="HD_VODPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr1"/> 	  	
+     		<schema name="HD_VODPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr2"/> 	  	
+     		<schema name="HD_VODPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr3"/> 	  	
+     		<schema name="HD_VODPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr4"/> 	  	
+     		<schema name="HD_VODPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_vodplostr5"/> 
+  
+     		<schema name="ARQVODPacketsLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr1"/> 	  	
+     		<schema name="ARQVODPacketsLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr2"/> 	  	
+     		<schema name="ARQVODPacketsLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr3"/> 	  	
+     		<schema name="ARQVODPacketsLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr4"/> 	  	
+     		<schema name="ARQVODPacketsLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_arqvodplostr5"/> 
+     		     		
+     		<schema name="MultiBitRateR1Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater1"/> 	  	
+     		<schema name="MultiBitRateR2Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater2"/> 	  	
+     		<schema name="MultiBitRateR3Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater3"/> 	  	
+     		<schema name="MultiBitRateR4Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater4"/> 	  	
+     		<schema name="MultiBitRateR5Nmb" type="unsignedInt" getter="sk_tr069_get_multibitrater5"/> 
+
+     		<schema name="VODBitRateR1Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater1"/> 	  	
+     		<schema name="VODBitRateR2Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater2"/> 	  	
+     		<schema name="VODBitRateR3Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater3"/> 	  	
+     		<schema name="VODBitRateR4Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater4"/> 	  	
+     		<schema name="VODBitRateR5Nmb" type="unsignedInt" getter="sk_tr069_get_vodbitrater5"/>      		     		     		 	
+
+     		<schema name="BufferIncNmb" type="unsignedInt" getter="sk_tr069_get_bufferincnmb"/> 	  	
+     		<schema name="BufferDecNmb" type="unsignedInt" getter="sk_tr069_get_bufferdecnmb"/>  
+     		    		     		 	
+     		<schema name="FramesLostR1Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr1"/> 	  	
+     		<schema name="FramesLostR2Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr2"/> 	  	
+     		<schema name="FramesLostR3Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr3"/> 	  	
+     		<schema name="FramesLostR4Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr4"/> 	  	
+     		<schema name="FramesLostR5Nmb" type="unsignedInt" getter="sk_tr069_get_framelostr5"/> 	  	
+
+    	</schema> 
+      
+  	</schema>
+     <schema name="IPTV" type="object">
+		<schema name="Service" type="object">
+			<schema name="AccountID" type="string" write="W" getter="sk_tr069_get_hw_username"  setter="sk_tr069_set_hw_username"/>
+			<schema name="Password" type="string" write="W" getter="sk_tr069_get_hw_password"  setter="sk_tr069_set_hw_password"/>
+		</schema>
+	 </schema>
+  </schema>
+</model>
+  
